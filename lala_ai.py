@@ -23,7 +23,7 @@ import tkinter as tk
 import threading
 
 VERSI_LALA = "2026-11-09"
-URL_GITHUB_RAW = "MASUKAN_LINK_RAW_GITHUB_DISINI"
+URL_GITHUB_RAW = "https://raw.githubusercontent.com/zemecksis/lala_ai/refs/heads/main/lala_ai.py"
 
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
@@ -224,7 +224,6 @@ def jalankan_update(ui_widget):
         with urllib.request.urlopen(req) as response:
             kode_baru = response.read().decode('utf-8')
         
-        # Validasi keamanan: Pastikan file yang diunduh benar-benar kode Lala
         if "import edge_tts" in kode_baru:
             with open(__file__, 'w', encoding='utf-8') as f:
                 f.write(kode_baru)
@@ -273,7 +272,7 @@ class LalaWidget:
         self.menu.add_command(label="Transparency: 40%", command=lambda: self.atur_transparansi(0.4))
         self.menu.add_command(label="Transparency: 20%", command=lambda: self.atur_transparansi(0.2))
         self.menu.add_separator()
-        self.menu.add_command(label="Perbarui / Update Lala", command=self.trigger_update_manual)
+        self.menu.add_command(label="Update Lala", command=self.trigger_update_manual)
         self.menu.add_command(label="Close Lala", command=self.tutup_aplikasi)
 
         self.animasi_berjalan()
@@ -371,7 +370,7 @@ def jalankan_otak_lala(ui_widget):
     threading.Thread(target=muat_otak, daemon=True).start()
     print("[Log] Memanaskan otak Llama 3.1 ke RAM...")
 
-    if URL_GITHUB_RAW != "MASUKAN_LINK_RAW_GITHUB_DISINI":
+    if URL_GITHUB_RAW != "https://raw.githubusercontent.com/zemecksis/lala_ai/refs/heads/main/lala_ai.py":
         try:
             req = urllib.request.Request(URL_GITHUB_RAW, headers={'Cache-Control': 'no-cache'})
             with urllib.request.urlopen(req, timeout=5) as response:
